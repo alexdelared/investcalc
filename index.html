@@ -1,0 +1,22 @@
+<html ng-app="app">
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+	<link rel="stylesheet" href="styles/styles.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body ng-controller="controller">
+	<h1>InvestCalc</h1>
+
+	<nav>
+		<div ng-click="verContenido('/meta')">Por Meta</div>
+		<div ng-click="verContenido('/plan')">Por Plan</div>
+	</nav>
+
+	<br>
+	
+	<section ng-view></section>
+</body>
+</html>

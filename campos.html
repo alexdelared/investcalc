@@ -1,0 +1,19 @@
+<div style="margin-top: 30px">
+	<div>Monto inicial</div>
+	<div><input type="text" id="nuMonto" ng-model="$parent.nuMonto"></div>
+</div>
+<div>
+	<div>Tasa de rendimiento</div>
+	<div><input type="text" id="nuTasa" ng-model="$parent.nuTasa"></div>
+</div>
+<div>
+	<div>Periodo (años)</div>
+	<div><input type="text" id="nuPeriodo" ng-model="$parent.nuPeriodo"></div>
+</div>
+<div>
+	<div style="width: 66%"></div>
+	<div style="width: 34%">
+		<button ng-click="calcularMeta()">Calcular</button>
+		<button ng-click="borrar()">Borrar</button>
+	</div>
+</div>
