@@ -10,6 +10,15 @@
 	<div>Periodo (años)</div>
 	<div><input type="text" id="nuPeriodo" ng-model="$parent.nuPeriodo"></div>
 </div>
+<div id="opcionales" ng-click="mostrarOpcionales()">Opcionales..</div>
+<div ng-show="$parent.sonVisiblesOpcionales">
+	<div>Aportación</div>
+	<div><input type="text" id="nuAportacion" ng-model="$parent.nuAportacion"></div>
+</div>
+<div ng-show="$parent.sonVisiblesOpcionales">
+	<div>Periodicidad</div>
+	<div><input type="text" id="nuPeriodicidad" ng-model="$parent.nuPeriodicidad"></div>
+</div>
 <div>
 	<div style="width: 66%"></div>
 	<div style="width: 34%">

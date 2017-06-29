@@ -20,9 +20,22 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		var nuMonto 	= $scope.nuMonto;
 		var nuTasa  	= $scope.nuTasa;
 		var nuPeriodo 	= $scope.nuPeriodo;
+		//var pjMonto		= 1 / (parseFloat(nuMonto) / $scope.nuAportacion);
+		var pjMonto		= $scope.nuAportacion || 0;
+
 		var producto	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
 
 		var totalInversion = producto * parseFloat(nuMonto);
+
+		//Ciclar calculo
+		totalInversion = nuMonto;
+
+		for (var i = 0; i < nuPeriodo; i++)
+		{
+			nuMontoAnterior = parseFloat(totalInversion);
+			totalInversion = nuMontoAnterior + (nuMontoAnterior *parseFloat(nuTasa)) + parseFloat(pjMonto);
+		}
+		///////////////////////////////////////
 
 		$scope.totalInversion = totalInversion;
 		$scope.nuMontoDolares = calculoServicio.calcularDolares(totalInversion);
@@ -35,6 +48,18 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.nuTasa 		= '';
 		$scope.nuPeriodo 	= '';
 		$scope.totalInversion = '0.00';
+
+		$scope.sonVisiblesOpcionales = false;
+	}
+
+	var conteo = 0;
+
+	$scope.mostrarOpcionales = function(){
+		conteo++;
+
+		var esVisible = !(conteo % 2 == 0);
+
+		$scope.sonVisiblesOpcionales = esVisible;
 	}
 
 	//Inicializar variables
