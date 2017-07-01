@@ -1,6 +1,6 @@
 <div style="margin-top: 30px">
 	<div>Monto inicial</div>
-	<div><input type="text" id="nuMonto" ng-model="$parent.nuMonto"></div>
+	<div><input type="text" id="nuMonto" money-mask money-mask-prepend="$" ng-model="$parent.nuMonto"></div>
 </div>
 <div>
 	<div>Tasa de rendimiento</div>
@@ -10,18 +10,18 @@
 	<div>Periodo (años)</div>
 	<div><input type="text" id="nuPeriodo" ng-model="$parent.nuPeriodo"></div>
 </div>
-<div id="opcionales" ng-click="mostrarOpcionales()">Opcionales..</div>
+<div id="opcionales" ng-click="mostrarOpcionales()">Más <span class="fa fa-caret-down"></span></div>
 <div ng-show="$parent.sonVisiblesOpcionales">
 	<div>Aportación</div>
-	<div><input type="text" id="nuAportacion" ng-model="$parent.nuAportacion"></div>
+	<div><input type="text" id="nuAportacion" money-mask money-mask-prepend="$" ng-model="$parent.nuAportacion"></div>
 </div>
 <div ng-show="$parent.sonVisiblesOpcionales">
 	<div>Periodicidad</div>
 	<div><input type="text" id="nuPeriodicidad" ng-model="$parent.nuPeriodicidad"></div>
 </div>
 <div>
-	<div style="width: 66%"></div>
-	<div style="width: 34%">
+	<div style="width: 50%"></div>
+	<div style="width: 50%">
 		<button ng-click="calcularMeta()">Calcular</button>
 		<button ng-click="borrar()">Borrar</button>
 	</div>

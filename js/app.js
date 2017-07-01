@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'rw.moneymask']);
 
 app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider){
 
@@ -14,17 +14,34 @@ app.controller('controller', [ '$scope', '$location', '$anchorScroll', function 
    	}
 }]);
 
-app.controller('metaController', [ '$scope', function ($scope){
+app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory', function ($scope, calculoServicio, investFactory){
 
 	$scope.calcularMeta = function(){
 		var nuMonto 	= $scope.nuMonto;
 		var nuTasa  	= $scope.nuTasa;
 		var nuPeriodo 	= $scope.nuPeriodo;
-		var producto	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
+		//var pjMonto		= 1 / (parseFloat(nuMonto) / $scope.nuAportacion);
+		var pjMonto		= $scope.nuAportacion || 0;
+		var nuPeriodicidad = $scope.nuPeriodicidad || 1; //en años
+		/*var producto	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
+		var totalInversion = producto * parseFloat(nuMonto);*/
 
-		var totalInversion = producto * parseFloat(nuMonto);
+		//Ciclar calculo
+		var totalInversion = nuMonto;
+
+		for (var i = 0; i < nuPeriodo; i++)
+		{
+			aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
+
+			nuMontoAnterior = parseFloat(totalInversion);
+			totalInversion = nuMontoAnterior + (nuMontoAnterior *parseFloat(nuTasa)) + parseFloat(aportacion);
+		}
+		///////////////////////////////////////
 
 		$scope.totalInversion = totalInversion;
+		$scope.nuMontoDolares = calculoServicio.calcularDolares(totalInversion);
+
+		$scope.nuMontoEuros	  = investFactory.calcularEuros(totalInversion);
 	}
 
 	$scope.borrar = function(){
@@ -32,6 +49,18 @@ app.controller('metaController', [ '$scope', function ($scope){
 		$scope.nuTasa 		= '';
 		$scope.nuPeriodo 	= '';
 		$scope.totalInversion = '0.00';
+
+		$scope.sonVisiblesOpcionales = false;
+	}
+
+	var conteo = 0;
+
+	$scope.mostrarOpcionales = function(){
+		conteo++;
+
+		var esVisible = !(conteo % 2 == 0);
+
+		$scope.sonVisiblesOpcionales = esVisible;
 	}
 
 	//Inicializar variables
@@ -39,7 +68,7 @@ app.controller('metaController', [ '$scope', function ($scope){
 
 }]);
 
-app.controller('planController', [ '$scope', function ($scope){
+app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory', function ($scope, calculoServicio, investFactory){
 
 	$scope.calcularPlan = function(){
 		var nuMeta 		= $scope.nuMeta;
@@ -50,6 +79,9 @@ app.controller('planController', [ '$scope', function ($scope){
 		var inversionInicial = nuMeta / producto;
 
 		$scope.inversionInicial = inversionInicial;
+		$scope.nuMontoDolaresPlan = calculoServicio.calcularDolares(inversionInicial);
+
+		$scope.nuMontoEurosPlan   = investFactory.calcularEuros(inversionInicial);
 	}
 
 	$scope.borrar = function(){
@@ -63,3 +95,16 @@ app.controller('planController', [ '$scope', function ($scope){
 	$scope.borrar();
 }]);
 
+app.service('calculoServicio', function(){
+	this.calcularDolares = function(monto){
+		return monto / 20;
+	}
+});
+
+app.factory('investFactory', function(){
+	return {
+		calcularEuros: function(monto){
+			return monto / 22;
+		}
+	}
+});

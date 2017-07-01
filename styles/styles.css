@@ -2,46 +2,68 @@ body{
 	font-family: 'Cabin', sans-serif;
 }
 
+h1 {
+	margin-left: 10%;
+}
+
 nav {
 	height: 30px;
-	width: 200px;
+	line-height: 30px;
+	margin-left: 10%;
+	width: 500px;
 }
 
 nav div {
-	background-color: #ecf0f1;
-	border-style: solid;
+	background-color: #34495e;
+	color: #FFFFFF;
 	cursor: pointer;
 	float: left;
 	height: 100%;
 	text-align: center;
 	width: 45%;
+	vertical-align: 50%;
+}
+
+nav div:nth-child(2){
+	margin-left: 10px;
 }
 
 nav div:hover {
-	background-color: #34495e;
+	background-color: #e74c3c;
 	color: #FFFFFF;
 }
 
 section {
-	background-color: #3498db;
-	height: 200px;
-	width: 1000px;
+	background-color: #ecf0f1;
+	box-shadow: 10px 10px 10px #CCCCCC;
+	height: 300px;
+	margin-left: 10%;
+	width: 80%;
 }
 
 section > div {
-	float: left;
+	float: left;	
+}
+
+#campos, #camposPlan {
 	height: inherit;
 	margin-left: 10px;
 	width: 49%;
 }
 
 #resultados, #resultadosPlan {
-	background-color: #e67e22;
+	background-color: #34495e;
+	border-radius: 20px;
+	color: #ecf0f1;
+	height: 50%;
+	margin-left: 50px;
+	margin-top: 75px;
+	width: 40%;
 }
 
 section div div {
 	--float: left;
-	height: 20%;
+	height: 10%;
 	width: 100%;
 }
 
@@ -53,4 +75,8 @@ section div div div {
 
 input {
 	width: 200px;
+}
+
+#opcionales {
+	cursor: pointer;
 }
