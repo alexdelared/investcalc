@@ -18,11 +18,13 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 
 	$scope.calcularMeta = function(){
 		var nuMonto 	= $scope.nuMonto;
-		var nuTasa  	= $scope.nuTasa;
+		var nuTasa  	= $scope.nuTasa / 100;
 		var nuPeriodo 	= $scope.nuPeriodo;
 		//var pjMonto		= 1 / (parseFloat(nuMonto) / $scope.nuAportacion);
 		var pjMonto		= $scope.nuAportacion || 0;
 		var nuPeriodicidad = $scope.nuPeriodicidad || 1; //en años
+		var nuRetiro 	= $scope.nuRetiro;
+
 		/*var producto	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
 		var totalInversion = producto * parseFloat(nuMonto);*/
 
@@ -31,6 +33,7 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 
 		for (var i = 0; i < nuPeriodo; i++)
 		{
+			//productoAnual = 12 / nuPeriodicidad;
 			aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
 
 			nuMontoAnterior = parseFloat(totalInversion);
@@ -39,6 +42,7 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		///////////////////////////////////////
 
 		$scope.totalInversion = totalInversion;
+		$scope.mensualidad    = totalInversion / ( nuRetiro * 12 );
 		$scope.nuMontoDolares = calculoServicio.calcularDolares(totalInversion);
 
 		$scope.nuMontoEuros	  = investFactory.calcularEuros(totalInversion);
@@ -48,6 +52,7 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.nuMonto 		= '';
 		$scope.nuTasa 		= '';
 		$scope.nuPeriodo 	= '';
+		$scope.nuRetiro     = '';
 		$scope.totalInversion = '0.00';
 
 		$scope.sonVisiblesOpcionales = false;
@@ -72,7 +77,7 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 
 	$scope.calcularPlan = function(){
 		var nuMeta 		= $scope.nuMeta;
-		var nuTasa 		= $scope.nuTasaPlan;
+		var nuTasa 		= $scope.nuTasaPlan / 100;
 		var nuPeriodo 	= $scope.nuPeriodoRetiro;
 		var producto 	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
 
