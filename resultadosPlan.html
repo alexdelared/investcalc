@@ -1,5 +1,12 @@
 <div style="margin-top: 30px; margin-left: 10px">
-	<span>Monto inicial: {{$parent.inversionInicial | currency}}</span><br>
-	<span>Monto en dólares: {{ $parent.nuMontoDolaresPlan | currency}}</span><br>
-	<span>Monto en euros: {{ $parent.nuMontoEurosPlan | currency}}</span>
+	<div style="float:left">
+		<span>Monto inicial: </span><br>
+		<span>Monto en dólares: </span><br>
+		<span>Monto en euros: </span>
+	</div>
+	<div style="float:left">
+		<span>{{$parent.inversionInicial | currency}}</span><br>
+		<span>{{ $parent.nuMontoDolaresPlan | currency}}</span><br>
+		<span>{{ $parent.nuMontoEurosPlan | currency}}</span>
+	</div>
 </div>

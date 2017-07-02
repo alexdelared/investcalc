@@ -3,17 +3,21 @@
 	<div><input type="text" id="nuMeta" money-mask money-mask-prepend="$" ng-model="$parent.nuMeta"></div>
 </div>
 <div>
-	<div>Tasa de rendimiento</div>
+	<div>Tasa de rendimiento anual (%)</div>
 	<div><input type="text" id="nuTasaPlan" ng-model="$parent.nuTasaPlan"></div>
 </div>
 <div>
-	<div>Periodo (años)</div>
+	<div>Plazo de inversión (años)</div>
 	<div><input type="text" id="nuPeriodoRetiro" ng-model="$parent.nuPeriodoRetiro"></div>
 </div>
 <div>
 	<div style="width: 50%"></div>
 	<div style="width: 40%">
+		<!--
 		<button ng-click="calcularPlan()">Calcular</button>
 		<button ng-click="borrar()">Borrar</button>
+		-->
+		<span class="fa fa-calculator" style="cursor: pointer; font-size: 30" ng-click="calcularPlan()" title="Calcular"></span>
+		<span class="fa fa-eraser" style="cursor: pointer; font-size: 30" ng-click="borrar()" title="Borrar campos"></span>
 	</div>
 </div>

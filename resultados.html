@@ -1,5 +1,16 @@
 <div style="margin-top: 30px; margin-left: 10px">
-	<span>Total de la inversión: {{$parent.totalInversion | currency}}</span><br>
-	<span>Monto en dólares: {{ $parent.nuMontoDolares | currency}}</span><br>
-	<span>Monto en euros: {{ $parent.nuMontoEuros | currency}}</span>
+	<div style="float:left">
+		<span>Total de la inversión: </span><br>
+		<span>Periodo de retiro (años): </span><br>
+		<span>Mensualidad: </span><br><br>
+		<span>Monto en dólares: </span><br>
+		<span>Monto en euros: </span>
+	</div>
+	<div style="float:left">
+		<span>{{$parent.totalInversion | currency}}</span><br>
+		<span>{{$parent.nuRetiro }}</span><br>
+		<span>{{ $parent.mensualidad | currency }}</span><br><br>
+		<span>{{ $parent.nuMontoDolares | currency}}</span><br>
+		<span>{{ $parent.nuMontoEuros | currency}}</span><br>
+	</div>
 </div>
