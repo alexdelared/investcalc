@@ -3,14 +3,24 @@ body{
 }
 
 h1 {
-	margin-left: 10%;
+	margin-left: 33%;
+	margin-top: 20%;
 }
 
 nav {
 	height: 30px;
 	line-height: 30px;
-	margin-left: 10%;
+	margin-left: 33%;
 	width: 500px;
+}
+
+.presionadoNav {
+	margin-left: 10%;
+}
+
+.presionadoH1 {
+	margin-left: 10%;
+	margin-top: 0%;
 }
 
 nav div {
@@ -29,8 +39,8 @@ nav div:nth-child(2){
 }
 
 nav div:hover {
-	background-color: #e74c3c;
-	color: #FFFFFF;
+	--background-color: #e74c3c;
+	--color: #FFFFFF;
 }
 
 section {
@@ -77,6 +87,11 @@ input {
 	width: 200px;
 }
 
-#opcionales {
+#opcionales, #opcionalesPlan {
 	cursor: pointer;
+	width: 10%;
+}
+
+.presionadoPlan, .presionadoMeta {
+	background-color: #e74c3c;
 }
