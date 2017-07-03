@@ -7,8 +7,17 @@
 	<div><input type="text" id="nuTasaPlan" ng-model="$parent.nuTasaPlan"></div>
 </div>
 <div>
-	<div>Plazo de inversión (años)</div>
+	<div>Plazo de inversión (en años)</div>
 	<div><input type="text" id="nuPeriodoRetiro" ng-model="$parent.nuPeriodoRetiro"></div>
+</div>
+<div id="opcionalesPlan" ng-click="mostrarOpcionalesPlan()">Más <span class="fa fa-caret-down"></span></div>
+<div ng-show="$parent.sonVisiblesOpcionalesPlan">
+	<div>Aportación periódica</div>
+	<div><input type="text" id="nuAportacionPlan" money-mask money-mask-prepend="$" ng-model="$parent.nuAportacionPlan"></div>
+</div>
+<div ng-show="$parent.sonVisiblesOpcionalesPlan">
+	<div>Periodicidad (en meses)</div>
+	<div><input type="text" id="nuPeriodicidadPlan" ng-model="$parent.nuPeriodicidadPlan"></div>
 </div>
 <div>
 	<div style="width: 50%"></div>
