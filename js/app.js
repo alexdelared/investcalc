@@ -9,8 +9,43 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
 
 app.controller('controller', [ '$scope', '$location', '$anchorScroll', function ($scope, $location, $anchorScroll){
 	
+	$scope.presionadoMeta 	= false;
+	$scope.presionadoPlan 	= false;
+	$scope.presionadoH1 	= false;
+	$scope.presionadoNav 	= false;
+
 	$scope.verContenido = function(id) {
+
+		$scope.presionadoH1 	= true;
+		$scope.presionadoNav 	= true;
+
     	$location.path(id);
+
+    	if (id == '/meta'){
+    		$scope.presionadoMeta = true;
+    		$scope.presionadoPlan = false;
+    	}
+    	else{
+    		$scope.presionadoPlan = true;
+    		$scope.presionadoMeta = false;
+    	}
+    	
+    	/*
+    	var estiloMeta;
+
+    	if (id == '/meta'){
+    		if (estiloMeta !== { "background-color" : "#e74c3c" })
+    			estiloMeta = { "background-color" : "#e74c3c" };
+    		else
+    			estiloMeta = { "background-color" : "#34495e" };
+
+    		$scope.colorBotonMeta = estiloMeta;
+    	}
+    	else{
+    		estiloPlan  = { "background-color" : "#e74c3c" };
+    		$scope.colorBotonPlan = estiloPlan;
+    	}	
+    	*/
    	}
 }]);
 
@@ -31,13 +66,43 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		//Ciclar calculo
 		var totalInversion = nuMonto;
 
+		/*
 		for (var i = 0; i < nuPeriodo; i++)
 		{
 			//productoAnual = 12 / nuPeriodicidad;
+			if (pjMonto == 0)
+			{
+				aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
+
+				nuMontoAnterior = parseFloat(totalInversion);
+				totalInversion = nuMontoAnterior + (nuMontoAnterior *parseFloat(nuTasa)) + parseFloat(aportacion);
+			}
+			else
+			{
+				aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
+
+				x = 12 / nuPeriodicidad;
+				//1 mes ... x = 12 (12 iteraciones para cada aportacion)
+				//2 meses .. x = 6 
+				//3 meses .. x = 4 (4 iteraciones para cada aportacion)
+
+				for (var j = 0; j < x; j++)
+				{
+					nuMontoAnterior = parseFloat(totalInversion);
+					totalInversion = nuMontoAnterior + (nuMontoAnterior * (parseFloat(nuTasa) / x)) + parseFloat(aportacion);
+				}
+			}
+		}
+		*/
+		
+		x = 12 / nuPeriodicidad;
+
+		for (var i = 0; i < (nuPeriodo*12); i++)
+		{
 			aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
 
 			nuMontoAnterior = parseFloat(totalInversion);
-			totalInversion = nuMontoAnterior + (nuMontoAnterior *parseFloat(nuTasa)) + parseFloat(aportacion);
+			totalInversion = nuMontoAnterior + (nuMontoAnterior * (parseFloat(nuTasa) / 12)) + parseFloat(aportacion);
 		}
 		///////////////////////////////////////
 
@@ -79,9 +144,29 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 		var nuMeta 		= $scope.nuMeta;
 		var nuTasa 		= $scope.nuTasaPlan / 100;
 		var nuPeriodo 	= $scope.nuPeriodoRetiro;
-		var producto 	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
+		/*var producto 	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
 
 		var inversionInicial = nuMeta / producto;
+
+		$scope.inversionInicial = inversionInicial;
+		$scope.nuMontoDolaresPlan = calculoServicio.calcularDolares(inversionInicial);
+
+		$scope.nuMontoEurosPlan   = investFactory.calcularEuros(inversionInicial);*/
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		var pjMonto		= $scope.nuAportacionPlan || 0;
+		var nuPeriodicidad = $scope.nuPeriodicidadPlan || 1;
+		x = 12 / nuPeriodicidad;
+
+		var inversionInicial = nuMeta;
+
+		for (var i = 0; i < (nuPeriodo*12); i++)
+		{
+			aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
+
+			nuMontoAnterior = parseFloat(inversionInicial);
+			inversionInicial = (nuMontoAnterior / (1 + (parseFloat(nuTasa) / 12))) - parseFloat(aportacion);
+		}
 
 		$scope.inversionInicial = inversionInicial;
 		$scope.nuMontoDolaresPlan = calculoServicio.calcularDolares(inversionInicial);
@@ -94,6 +179,16 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.nuTasaPlan		= '';
 		$scope.nuPeriodoRetiro 	= '';
 		$scope.inversionInicial = '0.00';
+	}
+
+	var conteo = 0;
+
+	$scope.mostrarOpcionalesPlan = function(){
+		conteo++;
+
+		var esVisible = !(conteo % 2 == 0);
+
+		$scope.sonVisiblesOpcionalesPlan = esVisible;
 	}
 
 	//Inicializar variables
