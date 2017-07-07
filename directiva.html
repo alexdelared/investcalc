@@ -1,0 +1,45 @@
+<div style="margin-top: 30px">
+	<div>Monto inicial</div>
+	<div>
+		<input type="text" id="nuMonto" ng-model="nuMonto">
+	</div>
+</div>
+<div>
+	<div>Tasa de rendimiento anual (%)</div>
+	<div><input type="text" id="nuTasa" ng-model="nuTasa"></div>
+</div>
+<div>
+	<div>Plazo de inversión (en años)</div>
+	<div><input type="text" id="nuPeriodo" ng-model="nuPeriodo"></div>
+</div>
+<div>
+	<div>
+		<input type="checkbox" id="snPeriodoMostrar" ng-model="snPeriodo" ng-click="cambiar($event)"> Por mensualidad
+	</div>
+</div>
+<div ng-show="snPeriodoMostrar">
+	<div>Periodo de retiro (en años)</div>
+	<div><input type="text" id="nuRetiro" ng-model="nuRetiro"></div>
+</div>
+<div ng-show="snMensualidadMostrar">
+	<div>Mensualidad esperada en retiro</div>
+	<div><input type="text" id="nuMensualidad" ng-model="$parent.nuMensualidad"></div>
+</div>
+<div id="opcionales" ng-click="mostrarOpcionales()">Más <span class="fa fa-caret-down"></span></div>
+<div ng-show="sonVisiblesOpcionales">
+	<div>Aportación periódica</div>
+	<div>
+		<input type="text" id="nuAportacion" ng-model="nuAportacion">
+	</div>
+</div>
+<div ng-show="sonVisiblesOpcionales">
+	<div>Periodicidad (en meses)</div>
+	<div><input type="text" id="nuPeriodicidad" ng-model="nuPeriodicidad"></div>
+</div>
+<div>
+	<div style="width: 50%"></div>
+	<div style="width: 50%">
+		<span class="fa fa-calculator" style="cursor: pointer; font-size: 30" ng-click="calcularMeta()" title="Calcular"></span>
+		<span class="fa fa-eraser" style="cursor: pointer; font-size: 30" ng-click="borrar()" title="Borrar campos"></span>
+	</div>
+</div>
