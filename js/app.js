@@ -14,6 +14,13 @@ app.controller('controller', [ '$scope', '$location', '$anchorScroll', function 
 	$scope.presionadoH1 	= false;
 	$scope.presionadoNav 	= false;
 
+	$scope.paises = [
+					{name: 'Argentina'}, 
+					{name: 'Francia'}, 
+					{name: 'Italia'}, 
+					{name: 'Alemania'}
+				]; 
+
 	$scope.verContenido = function(id) {
 
 		$scope.presionadoH1 	= true;
@@ -111,6 +118,26 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.nuMontoDolares = calculoServicio.calcularDolares(totalInversion);
 
 		$scope.nuMontoEuros	  = investFactory.calcularEuros(totalInversion);
+
+		//Calcular años que duraría el fondo
+		var inversionDescontarMensualidad = totalInversion;
+		var nuMensualidad = $scope.nuMensualidad;
+		var nuMeses = 0;
+
+		if ($scope.snMensualidadMostrar){
+			while (inversionDescontarMensualidad >= 0){
+				nuMontoAnterior = parseFloat(inversionDescontarMensualidad);
+				inversionDescontarMensualidad = nuMontoAnterior + (nuMontoAnterior * (parseFloat(nuTasa) / 12)) - parseFloat(nuMensualidad);
+			
+				nuMeses++;
+			}
+
+			$scope.nuAnos = Math.floor(nuMeses / 12);
+			$scope.nuMeses = nuMeses % 12;
+			$scope.snCalcularDuracion = true;
+		}
+		else
+			$scope.snCalcularDuracion = false;
 	}
 
 	$scope.borrar = function(){
@@ -119,8 +146,16 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.nuPeriodo 	= '';
 		$scope.nuRetiro     = '';
 		$scope.totalInversion = '0.00';
-
-		$scope.sonVisiblesOpcionales = false;
+		$scope.nuMontoDolares = '0.00';
+		$scope.nuMontoEuros = '0.00';
+		$scope.nuAnos 		= 0;
+		$scope.nuMeses 		= 0;
+		$scope.snCalcularDuracion 		= false;
+		$scope.sonVisiblesOpcionales 	= false;
+		$scope.snPeriodo 				= false;
+		$scope.snMensualidad 			= false;
+		$scope.snPeriodoMostrar 		= true;
+		$scope.snMensualidadMostrar 	= false;
 	}
 
 	var conteo = 0;
@@ -131,6 +166,18 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		var esVisible = !(conteo % 2 == 0);
 
 		$scope.sonVisiblesOpcionales = esVisible;
+	}
+
+	$scope.cambiar = function($event){
+		var checkbox = $event.target;
+		if (checkbox.checked){
+			$scope.snPeriodoMostrar 		= false;
+			$scope.snMensualidadMostrar 	= true;
+		}
+		else{
+			$scope.snPeriodoMostrar 		= true;
+			$scope.snMensualidadMostrar 	= false;
+		}
 	}
 
 	//Inicializar variables
@@ -175,10 +222,12 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 	}
 
 	$scope.borrar = function(){
-		$scope.nuMeta 			= '';
-		$scope.nuTasaPlan		= '';
-		$scope.nuPeriodoRetiro 	= '';
-		$scope.inversionInicial = '0.00';
+		$scope.nuMeta 				= '';
+		$scope.nuTasaPlan			= '';
+		$scope.nuPeriodoRetiro 		= '';
+		$scope.inversionInicial 	= '0.00';
+		$scope.nuMontoDolaresPlan 	= '0.00';
+		$scope.nuMontoEurosPlan 	= '0.00';
 	}
 
 	var conteo = 0;
@@ -206,5 +255,24 @@ app.factory('investFactory', function(){
 		calcularEuros: function(monto){
 			return monto / 22;
 		}
+	}
+});
+
+//Directivas
+app.directive('miDirectiva', function(){
+	return {
+		restrict: 'EA',
+		templateUrl: "directiva.html",
+		scope: {
+			lista: "=",
+			miatributo: "@"
+		}
+	}
+});
+
+app.directive('camposMetas', function(){
+	return {
+		restrict: 'EA',
+		templateUrl: 'directiva.html'
 	}
 });
