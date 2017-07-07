@@ -130,6 +130,10 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 				inversionDescontarMensualidad = nuMontoAnterior + (nuMontoAnterior * (parseFloat(nuTasa) / 12)) - parseFloat(nuMensualidad);
 			
 				nuMeses++;
+
+				//Evitar ciclos infinitos (máx. 100 años)
+				if (nuMeses == 1200)
+					break;
 			}
 
 			$scope.nuAnos = Math.floor(nuMeses / 12);
