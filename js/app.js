@@ -144,22 +144,27 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 			$scope.snCalcularDuracion = false;
 	}
 
+	$scope.sonVisiblesOpcionales 	= false;
+	$scope.snPeriodoMostrar 		= true;
+	$scope.snMensualidadMostrar 	= false;
+	$scope.snCalcularDuracion 		= false;
+	$scope.snPeriodo 				= false;
+	$scope.snMensualidad 			= false;
+
 	$scope.borrar = function(){
-		$scope.nuMonto 		= '';
-		$scope.nuTasa 		= '';
-		$scope.nuPeriodo 	= '';
-		$scope.nuRetiro     = '';
-		$scope.totalInversion = '0.00';
-		$scope.nuMontoDolares = '0.00';
-		$scope.nuMontoEuros = '0.00';
-		$scope.nuAnos 		= 0;
-		$scope.nuMeses 		= 0;
-		$scope.snCalcularDuracion 		= false;
-		$scope.sonVisiblesOpcionales 	= false;
-		$scope.snPeriodo 				= false;
-		$scope.snMensualidad 			= false;
-		$scope.snPeriodoMostrar 		= true;
-		$scope.snMensualidadMostrar 	= false;
+		$scope.nuMonto 					= '';
+		$scope.nuTasa 					= '';
+		$scope.nuPeriodo 				= '';
+		$scope.nuRetiro     			= '';
+		$scope.nuMensualidad 			= '';
+		$scope.nuAportacion 			= '';
+		$scope.nuPeriodicidad 			= '';
+		$scope.totalInversion 			= '0.00';
+		$scope.nuMontoDolares 			= '0.00';
+		$scope.nuMontoEuros 			= '0.00';
+		$scope.nuAnos 					= 0;
+		$scope.nuMeses 					= 0;
+		$scope.mensualidad 				= '';
 	}
 
 	var conteo = 0;
@@ -232,6 +237,8 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.inversionInicial 	= '0.00';
 		$scope.nuMontoDolaresPlan 	= '0.00';
 		$scope.nuMontoEurosPlan 	= '0.00';
+		$scope.nuAportacionPlan 	= '';
+		$scope.nuPeriodicidadPlan 	= '';
 	}
 
 	var conteo = 0;
