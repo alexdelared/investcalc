@@ -58,6 +58,13 @@ app.controller('controller', [ '$scope', '$location', '$anchorScroll', function 
 
 app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory', function ($scope, calculoServicio, investFactory){
 
+	$scope.sonVisiblesOpcionales 	= false;
+	$scope.snPeriodoMostrar 		= true;
+	$scope.snMensualidadMostrar 	= false;
+	$scope.snCalcularDuracion 		= false;
+	$scope.snPeriodo 				= false;
+	$scope.snMensualidad 			= false;
+
 	$scope.calcularMeta = function(){
 		var nuMonto 	= $scope.nuMonto;
 		var nuTasa  	= $scope.nuTasa / 100;
@@ -127,6 +134,7 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		if ($scope.snMensualidadMostrar){
 			while (inversionDescontarMensualidad >= 0){
 				nuMontoAnterior = parseFloat(inversionDescontarMensualidad);
+
 				inversionDescontarMensualidad = nuMontoAnterior + (nuMontoAnterior * (parseFloat(nuTasa) / 12)) - parseFloat(nuMensualidad);
 			
 				nuMeses++;
@@ -144,14 +152,7 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 			$scope.snCalcularDuracion = false;
 	}
 
-	$scope.sonVisiblesOpcionales 	= false;
-	$scope.snPeriodoMostrar 		= true;
-	$scope.snMensualidadMostrar 	= false;
-	$scope.snCalcularDuracion 		= false;
-	$scope.snPeriodo 				= false;
-	$scope.snMensualidad 			= false;
-
-	$scope.borrar = function(){
+	$scope.reestablecerCampos = function(){
 		$scope.nuMonto 					= '';
 		$scope.nuTasa 					= '';
 		$scope.nuPeriodo 				= '';
@@ -190,7 +191,7 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 	}
 
 	//Inicializar variables
-	$scope.borrar();
+	$scope.reestablecerCampos();
 
 }]);
 
@@ -230,7 +231,7 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.nuMontoEurosPlan   = investFactory.calcularEuros(inversionInicial);
 	}
 
-	$scope.borrar = function(){
+	$scope.reestablecerCampos = function(){
 		$scope.nuMeta 				= '';
 		$scope.nuTasaPlan			= '';
 		$scope.nuPeriodoRetiro 		= '';
@@ -252,7 +253,7 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 	}
 
 	//Inicializar variables
-	$scope.borrar();
+	$scope.reestablecerCampos();
 }]);
 
 app.service('calculoServicio', function(){
