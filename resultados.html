@@ -1,17 +1,17 @@
 <div style="margin-top: 30px; margin-left: 10px">
 	<div style="float:left">
 		<span>Total de la inversión: </span><br>
-		<span ng-hide="$parent.snCalcularDuracion">Periodo de retiro (años): </span><br>
-		<span ng-hide="$parent.snCalcularDuracion">Mensualidad: </span><br><br>
-		<span ng-show="$parent.snCalcularDuracion">Años que durará el fondo: </span><br><br>
+		<span ng-hide="$parent.snMensualidadMostrar">Periodo de retiro (años): </span><br>
+		<span ng-hide="$parent.snMensualidadMostrar">Mensualidad: </span><br><br>
+		<span ng-show="$parent.snMensualidadMostrar">Años que durará el fondo: </span><br><br>
 		<span>Monto en dólares: </span><br>
 		<span>Monto en euros: </span>
 	</div>
 	<div style="float:left">
 		<span>{{ $parent.totalInversion | currency}}</span><br>
-		<span ng-hide="$parent.snCalcularDuracion">{{ $parent.nuRetiro }}</span><br>
-		<span ng-hide="$parent.snCalcularDuracion">{{ $parent.mensualidad | currency }}</span><br><br>
-		<span ng-show="$parent.snCalcularDuracion">{{ $parent.nuAnos }} años con {{ $parent.nuMeses }} meses</span><br><br>
+		<span ng-hide="$parent.snMensualidadMostrar">{{ $parent.nuRetiro }}</span><br>
+		<span ng-hide="$parent.snMensualidadMostrar">{{ $parent.mensualidad | currency }}</span><br><br>
+		<span ng-show="$parent.snMensualidadMostrar">{{ $parent.nuAnos }} años con {{ $parent.nuMeses }} meses</span><br><br>
 		<span>{{ $parent.nuMontoDolares | currency}}</span><br>
 		<span>{{ $parent.nuMontoEuros | currency}}</span><br>
 	</div>
