@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'rw.moneymask']);
+var app = angular.module('app', ['ngRoute']);
 
 app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider){
 
