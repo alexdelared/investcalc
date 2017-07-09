@@ -83,6 +83,22 @@ section div div div {
 	width: 50%;
 }
 
+section #resultados div div {
+	float: left;
+	height: inherit;
+	width: 100%;
+}
+
+section #resultados > div {
+	float:left; 
+	margin-top: 30px;  
+	width: 45%
+}
+
+section #resultados > div:nth-child(1) {
+	margin-left: 10px;
+}
+
 input[type="text"] {
 	width: 200px;
 }
