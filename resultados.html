@@ -1,18 +1,35 @@
-<div style="margin-top: 30px; margin-left: 10px">
-	<div style="float:left">
-		<span>Total de la inversión: </span><br>
-		<span ng-hide="$parent.snMensualidadMostrar">Periodo de retiro (años): </span><br>
-		<span ng-hide="$parent.snMensualidadMostrar">Mensualidad: </span><br><br>
-		<span ng-show="$parent.snMensualidadMostrar">Años que durará el fondo: </span><br><br>
-		<span>Monto en dólares: </span><br>
-		<span>Monto en euros: </span>
+<div style="float:left; margin-top: 30px; margin-left: 10px; width: 45%">
+
+	<span>Total de la inversión: </span><br>
+
+	<div ng-if="$parent.snMensualidadMostrar === false" style="height:20px, widht: 100%">
+		<span>Periodo de retiro (años): </span><br>
+		<span>Mensualidad: </span>
 	</div>
-	<div style="float:left">
-		<span>{{ $parent.totalInversion | currency}}</span><br>
-		<span ng-hide="$parent.snMensualidadMostrar">{{ $parent.nuRetiro }}</span><br>
-		<span ng-hide="$parent.snMensualidadMostrar">{{ $parent.mensualidad | currency }}</span><br><br>
-		<span ng-show="$parent.snMensualidadMostrar">{{ $parent.nuAnos }} años con {{ $parent.nuMeses }} meses</span><br><br>
-		<span>{{ $parent.nuMontoDolares | currency}}</span><br>
-		<span>{{ $parent.nuMontoEuros | currency}}</span><br>
+	<div ng-if="$parent.snMensualidadMostrar">
+		<span>Años que durará el fondo:</span>
 	</div>
+
+	<!--
+	<span>Monto en dólares: </span><br>
+	<span>Monto en euros: </span>
+	-->
+</div>
+<div style="float:left; margin-top: 30px; width: 45%">
+
+	<span>{{ $parent.totalInversion | currency}}</span><br>
+
+	<div ng-if="$parent.snMensualidadMostrar === false">
+		<span>{{ $parent.nuRetiro }}</span><br>
+		<span>{{ $parent.mensualidad | currency }}</span>
+	</div>
+	<div ng-if="$parent.snMensualidadMostrar">
+		<span>{{ $parent.nuAnos }} años con {{ $parent.nuMeses }} meses</span><br>
+		<span>(Edad: {{ $parent.nuEdad }} años)</span>
+	</div>
+
+	<!--
+	<span>{{ $parent.nuMontoDolares | currency}}</span><br>
+	<span>{{ $parent.nuMontoEuros | currency}}</span><br>
+	-->
 </div>
