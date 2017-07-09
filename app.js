@@ -14,13 +14,6 @@ app.controller('controller', [ '$scope', '$location', '$anchorScroll', function 
 	$scope.presionadoH1 	= false;
 	$scope.presionadoNav 	= false;
 
-	$scope.paises = [
-					{name: 'Argentina'}, 
-					{name: 'Francia'}, 
-					{name: 'Italia'}, 
-					{name: 'Alemania'}
-				]; 
-
 	$scope.verContenido = function(id) {
 
 		$scope.presionadoH1 	= true;
@@ -36,23 +29,6 @@ app.controller('controller', [ '$scope', '$location', '$anchorScroll', function 
     		$scope.presionadoPlan = true;
     		$scope.presionadoMeta = false;
     	}
-    	
-    	/*
-    	var estiloMeta;
-
-    	if (id == '/meta'){
-    		if (estiloMeta !== { "background-color" : "#e74c3c" })
-    			estiloMeta = { "background-color" : "#e74c3c" };
-    		else
-    			estiloMeta = { "background-color" : "#34495e" };
-
-    		$scope.colorBotonMeta = estiloMeta;
-    	}
-    	else{
-    		estiloPlan  = { "background-color" : "#e74c3c" };
-    		$scope.colorBotonPlan = estiloPlan;
-    	}	
-    	*/
    	}
 }]);
 
@@ -69,45 +45,12 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		var nuMonto 	= $scope.nuMonto;
 		var nuTasa  	= $scope.nuTasa / 100;
 		var nuPeriodo 	= $scope.nuPeriodo;
-		//var pjMonto		= 1 / (parseFloat(nuMonto) / $scope.nuAportacion);
 		var pjMonto		= $scope.nuAportacion || 0;
 		var nuPeriodicidad = $scope.nuPeriodicidad || 1; //en años
 		var nuRetiro 	= $scope.nuRetiro;
 
-		/*var producto	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
-		var totalInversion = producto * parseFloat(nuMonto);*/
-
 		//Ciclar calculo
 		var totalInversion = nuMonto;
-
-		/*
-		for (var i = 0; i < nuPeriodo; i++)
-		{
-			//productoAnual = 12 / nuPeriodicidad;
-			if (pjMonto == 0)
-			{
-				aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
-
-				nuMontoAnterior = parseFloat(totalInversion);
-				totalInversion = nuMontoAnterior + (nuMontoAnterior *parseFloat(nuTasa)) + parseFloat(aportacion);
-			}
-			else
-			{
-				aportacion = ( i % nuPeriodicidad ) == 0 ? pjMonto : 0;
-
-				x = 12 / nuPeriodicidad;
-				//1 mes ... x = 12 (12 iteraciones para cada aportacion)
-				//2 meses .. x = 6 
-				//3 meses .. x = 4 (4 iteraciones para cada aportacion)
-
-				for (var j = 0; j < x; j++)
-				{
-					nuMontoAnterior = parseFloat(totalInversion);
-					totalInversion = nuMontoAnterior + (nuMontoAnterior * (parseFloat(nuTasa) / x)) + parseFloat(aportacion);
-				}
-			}
-		}
-		*/
 		
 		x = 12 / nuPeriodicidad;
 
@@ -118,7 +61,6 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 			nuMontoAnterior = parseFloat(totalInversion);
 			totalInversion = nuMontoAnterior + (nuMontoAnterior * (parseFloat(nuTasa) / 12)) + parseFloat(aportacion);
 		}
-		///////////////////////////////////////
 
 		$scope.totalInversion = totalInversion;
 		$scope.mensualidad    = totalInversion / ( nuRetiro * 12 );
@@ -147,6 +89,8 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 			$scope.nuAnos = Math.floor(nuMeses / 12);
 			$scope.nuMeses = nuMeses % 12;
 			$scope.snCalcularDuracion = true;
+
+			$scope.nuEdad = parseInt($scope.nuPeriodo) + parseInt($scope.nuAnos) + 30;
 		}
 		else
 			$scope.snCalcularDuracion = false;
@@ -166,6 +110,7 @@ app.controller('metaController', [ '$scope', 'calculoServicio', 'investFactory',
 		$scope.nuAnos 					= 0;
 		$scope.nuMeses 					= 0;
 		$scope.mensualidad 				= '';
+		$scope.nuEdad  					= 30; //solicitar dato
 	}
 
 	var conteo = 0;
@@ -201,16 +146,6 @@ app.controller('planController', [ '$scope', 'calculoServicio', 'investFactory',
 		var nuMeta 		= $scope.nuMeta;
 		var nuTasa 		= $scope.nuTasaPlan / 100;
 		var nuPeriodo 	= $scope.nuPeriodoRetiro;
-		/*var producto 	= Math.pow(1 + parseFloat(nuTasa), parseInt(nuPeriodo));
-
-		var inversionInicial = nuMeta / producto;
-
-		$scope.inversionInicial = inversionInicial;
-		$scope.nuMontoDolaresPlan = calculoServicio.calcularDolares(inversionInicial);
-
-		$scope.nuMontoEurosPlan   = investFactory.calcularEuros(inversionInicial);*/
-
-		////////////////////////////////////////////////////////////////////////////////////////
 		var pjMonto		= $scope.nuAportacionPlan || 0;
 		var nuPeriodicidad = $scope.nuPeriodicidadPlan || 1;
 		x = 12 / nuPeriodicidad;
@@ -288,3 +223,16 @@ app.directive('camposMetas', function(){
 		templateUrl: 'directiva.html'
 	}
 });
+
+/*
+app.directive('input', function(){
+	return {
+		restrict: 'E',
+		link: function(scope, ele, attrs, ctrls){
+			var ngModel = ctrls[0];
+			var myDirective = ctrls[1];
+			console.log(ele.attr('id'));
+		}
+	}
+})
+*/
